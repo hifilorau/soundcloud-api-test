@@ -7,6 +7,7 @@
   left: 0;
   right:0;
   z-index: 100;
+	display: none;
 
 }
 
@@ -37,6 +38,7 @@
   bottom: 0;
   left: 0;
   z-index: 0;
+	
   
   /* non-critical appearance styles */
   list-style: none;
@@ -68,23 +70,6 @@
   background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(75,20,20,0.65) 100%);
 }
 
-/* Site Wrapper - Everything that isn't navigation */
-.site-wrap {
-  /* Critical position and size styles */
-  min-height: 100%;
-  min-width: 100%;
-  background-color: white; /* Needs a background or else the nav will show through */
-  position: relative;
-  top: 0;
-  bottom: 100%;
-  left: 0;
-  z-index: 1;
-  
-  /* non-critical apperance styles */
-  padding: 4em 0;
-  background-image: linear-gradient(135deg, rgb(254,255,255) 0%,rgb(221,241,249) 35%,rgb(160,216,239) 100%);
-  background-size: 200%;
-}
 
 /* Nav Trigger */
 .nav-trigger {
@@ -133,10 +118,23 @@ label[for="nav-trigger"] {
 
 .footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   position: relative;
+	text-align: center;
+	font-size: 2em;
+	padding: 1em;
+//	border-top: 1px limegreen solid;
+	background-color: $color-two;
+	
+	a {color: $color-one;}
+}
 
+.links {
+	display: flex;
+	justify-content: space-around;
+	
+  
 }
 
 .footer-social-links{

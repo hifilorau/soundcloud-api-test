@@ -1,15 +1,19 @@
+$font-one:'Quicksand', sans-serif;
+$color-one: #B63868;
+$color-two: #6FAC28;
+
 body {
-    font-family: sans-serif;
+    font-family: $font-one, sans-serif;
     line-height: 1.4;
     background: #FFF;
     color: #444;
 }
 
-h1 { font-size: 2em; margin: .67em 0;  }
-h2 { font-size: 1.5em; margin: .75em 0 }
-h3 { font-size: 1.17em; margin: .83em 0 }
-h5 { font-size: .83em; margin: 1.5em 0 }
-h6 { font-size: .75em; margin: 1.67em 0 }
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; font-family: $font-one;}
+h3 { font-size: 1.17em;}
+h5 { font-size: .83em;  }
+h6 { font-size: .75em;  }
 h1, h2, h3, h4,
 h5, h6 {
   font-weight: bolder
@@ -23,4 +27,28 @@ p {
 a {
   color: #00AAEE;
   text-decoration: none;
+}
+
+.icon {
+	font-family: hflr;
+}
+
+/* Site Wrapper - Everything that isn't navigation */
+.site-wrap {
+  /* Critical position and size styles */
+  min-height: 100%;
+  min-width: 100%;
+  background-color: white; /* Needs a background or else the nav will show through */
+  position: relative;
+  top: 0;
+  bottom: 100%;
+  left: 0;
+  z-index: 1;
+//	background:url(https://images.unsplash.com/photo-1416244579084-cceb7ab682ca?dpr=2&fit=crop&fm=jpg&h=700&q=50&w=1050) no-repeat center center fixed;
+//	background-size: cover;
+	background-color: white;
+  
+  /* non-critical apperance styles */
+  padding: 1em 0;
+  
 }
