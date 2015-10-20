@@ -63,17 +63,17 @@ var mixTrack = new MixTrack();
 	
 ///// get tracks and intitialize page
 	
-	SC.get(tracksUrl, function(tracks) {
-//			 console.log(tracks);
-		var chartNumber = 1;
-			$(tracks).each(function(index, track) {
-						$('#results').append($('<li data-id="' + track.id + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.artwork_url + '"></div><p><a target="_blank" href="' + track.permalink_url  + '">' + track.title + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
-						chartNumber ++;
-						$('.stop').hide();
-						saveTrackToParse(track);
-				});
-	});
-	
+//	SC.get(tracksUrl, function(tracks) {
+////			 console.log(tracks);
+//		var chartNumber = 1;
+//			$(tracks).each(function(index, track) {
+//						$('#results').append($('<li data-id="' + track.id + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.artwork_url + '"></div><p><a target="_blank" href="' + track.permalink_url  + '">' + track.title + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
+//						chartNumber ++;
+//						$('.stop').hide();
+////						saveTrackToParse(track);
+//				});
+//	});
+//	
 	
 	//////// end of function 
 	
@@ -156,12 +156,14 @@ var mixTrack = new MixTrack();
 			mixTrack.save({
 			trackId: track.id,
       trackTitle: track.title,
+			trackUrl: track.permalink_url,
+			trackImg: track.artwork_url
 		}, {
 			success: function(mixTrack) {
 			  console.log(mixTrack.get('trackTitle'));
 				console.log(mixTrack.get('trackId'));
 				console.log(mixTrack.id);
-				console.log(mixTrack);
+//				console.log(mixTrack);
 				// The object was saved successfully.
 			},
 			error: function(mixTrack, error) {
@@ -190,13 +192,19 @@ var mixTrack = new MixTrack();
 	
 	    var MixTrack = Parse.Object.extend("MixTrack");
 			var query = new Parse.Query(MixTrack);
-			query.equalTo("trackId", parseInt(track1));
+//			query.equalTo("trackId", parseInt(track1));
 			query.find({
 					success: function(results) {
-						  console.log(results[0].get('trackTitle'));
-						  $.each(results, function( index, result) {
-							console.log(result.get('trackId'));
-						});
+						  console.log(results[0].get('trackTitle'));	
+							var chartNumber = 1;
+						  $.each(results, function(index, track) {
+//							console.log(track.get('trackId'));
+											$('#results').append($('<li data-id="' + track.get('trackId') + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.get('trackImg') + '"></div><p><a target="_blank" href="' + track.get('trackImgUrl')  + '">' + track.get('trackTitle') + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
+											chartNumber ++;
+											$('.stop').hide();
+					//						saveTrackToParse(track);
+									});
+
 					},
 					error: function(object, error) {
 							console.error(error);
