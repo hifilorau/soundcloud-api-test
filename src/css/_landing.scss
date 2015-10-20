@@ -11,7 +11,12 @@
 }
 
 .now-playing-wrapper {
-	margin-right: 4em;
+	text-align: center;
+	padding: .3em 2em;
+//	background-color: $color-two;
+	width: 90%;
+	margin: 0 auto;
+//	margin-right: 4em;
 	text-align: right;
 	h4, p {display:inline-block;}
 	
