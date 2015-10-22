@@ -16,8 +16,9 @@
 //	background-color: $color-two;
 	width: 90%;
 	margin: 0 auto;
-//	margin-right: 4em;
 	text-align: right;
+	display:flex;
+	justify-content: space-between;
 	h4, p {display:inline-block;}
 	
 	p{
@@ -65,6 +66,9 @@
 		font-size: 4em;
 		font-family: $font-one;
 		margin-left: 1rem;
+		text-transform: uppercase;
+		color: black;
+		font-weight: 700;
 	}
 	
 	.now-playing-div {

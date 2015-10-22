@@ -14,9 +14,14 @@ $(document).ready(function() {
 	console.log(trackList);
 	var tracksUrl = '/tracks?ids=' + track1 + ',' + track2 + ',' + track3 + ',' + track4 + ',' + track5 + ',' + track6 + ',' + track7 + ',' + track8 + ',' + track9 + ',' + track10;
 //	console.log(tracksUrl);
-	var trackid = track1;
+//	var trackid = track1;
 	var playOn = false;
 	var error = "fuck it";
+//	var trackCollection;
+//							      console.log(trackCollection);
+	
+	
+	
 	
 	
 	//// start button hider/shower 
@@ -34,15 +39,42 @@ $(document).ready(function() {
 	
 	//// PARSING SHIT.
 	
-var MixTrack = Parse.Object.extend("MixTrack");
-var mixTrack = new MixTrack();
+		var MixTrack = Parse.Object.extend("MixTrack");
+		var mixTrack = new MixTrack();
   
+	
+	//// GET ALL TRACKS TO INITIALIZE PAGE
+	
+		var MixTrack = Parse.Object.extend("MixTrack");
+		var query = new Parse.Query(MixTrack);
+	  query.addAscending("order");
+		query.find({
+				success: function(results) {
+//						console.log(results[0].get('trackTitle'));	
+						var chartNumber = 1;
+						$.each(results, function(index, track) {
+										$('#results').append($('<li class="mixTrack-li" data-id="' + track.get('trackId') + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.get('trackImg') + '"></div><p><a target="_blank" href="' + track.get('trackImgUrl')  + '">' + track.get('trackTitle') + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
+										chartNumber ++;
+										$('.stop').hide();
+								});
+
+				},
+				error: function(object, error) {
+						console.error(error);
+						// The object was not retrieved successfully.
+						// error is a Parse.Error with an error code and description.
+				}
+		});
+	
+	///// FINISH INIT	
+	
+	
+
 	
 	//// start streaming
 	
 	 $('#results').on('click', '.start', function(e){
 		startToggler();
-		 
 		 $(this).addClass('is-playing');
 		 console.log(playOn);
  		 playOn = true;
@@ -83,8 +115,7 @@ var mixTrack = new MixTrack();
 	var nowPlaying = function (trackId) {
 		SC.get('/tracks/' + trackId, function(track) {
 			 console.log(trackId);
-			
-				$('.now-playing-wrapper').html('<div class="now-playing-div" data-id="' + track.id + '">	<h4>Now Playing:</h4><div class="now-playing-content"><p><a target="_blank" href="' + track.permalink_url  + '">' + track.title + '</a></p></div></div>');
+				$('.now-playing-insert').html('<div class="now-playing-div" data-id="' + track.id + '">	<h4>Now Playing:</h4><div class="now-playing-content"><p><a target="_blank" href="' + track.permalink_url  + '">' + track.title + '</a></p></div></div>');
 				
 	});
 	
@@ -97,22 +128,11 @@ var mixTrack = new MixTrack();
 	var streamTrack = function(trackId) {
 //		console.log(trackId);
 		SC.stream('/tracks/' + trackId, {onfinish: function(){
-		var randomTrack = trackList[Math.floor(Math.random()*trackList.length)];
-		console.log(randomTrack);
-		startToggler();
-			
-			
-			//// Cycle through loop of li's and look for data-ids that match random number. if they match hide and show start stop. 
-			for (i=0; i < trackList.length; ++i) {
-				console.log(trackList[i]);
-				if (randomTrack === trackList[i]) {
-				   console.log('heyo');
-					}
-
-				}
-
-			
+			var randomTrack = trackList[Math.floor(Math.random()*trackList.length)];
+			console.log(randomTrack);
+			startToggler();
 			streamTrack(randomTrack);
+			cycleTracks(randomTrack);
 			nowPlaying(randomTrack);				
 		}}, function(sound){
 			
@@ -120,16 +140,16 @@ var mixTrack = new MixTrack();
 			  soundManager.stopAll();
 				console.log(trackId);
 		 	  sound.play();
+				console.log('play');
+//				cycleTracks();
 				console.log(sound);
-				
-					
-				
 				nowPlaying(trackId);
 			}
 			else {
+				nowPlaying(trackId);
 				sound.play();
+//				cycleTracks();
 			}
-			
 			
 			 $('#results').on('click', '.stop', function(e){
 				 $(this).hide();
@@ -143,8 +163,8 @@ var mixTrack = new MixTrack();
 				 e.stopPropagation();
 				 e.preventDefault();
 	     });			
-		});
-	};
+		 });
+	 };
 	
 ////// function end.
 	
@@ -173,6 +193,25 @@ var mixTrack = new MixTrack();
 	  });
 	};
 	
+	var cycleTracks = function (randomTrack) {
+			console.log('fire');
+			var trackCollection = $('.mixTrack-li');
+			console.log(trackCollection);
+			trackCollection.each(function(index, result){
+			var trackId = $(this).data('id');	
+				var track = $(this);
+				console.log(randomTrack);
+				if (parseInt(trackId) === parseInt(randomTrack)) {
+					console.log('match');
+					var trackStartButton = track.find('.start');
+					trackStartButton.addClass('is-playing');
+					startToggler();
+				  trackStartButton.hide();
+					track.find('.stop').show();
+				}
+			    console.log(trackId);
+				});
+	};
 // $('.get-stuff').click(function() {
 //	    var MixTrack = Parse.Object.extend("MixTrack");
 //			var query = new Parse.Query(MixTrack);
@@ -188,32 +227,7 @@ var mixTrack = new MixTrack();
 //			 });
 //	  });
 	
-	
-	
-	    var MixTrack = Parse.Object.extend("MixTrack");
-			var query = new Parse.Query(MixTrack);
-//			query.equalTo("trackId", parseInt(track1));
-			query.find({
-					success: function(results) {
-						  console.log(results[0].get('trackTitle'));	
-							var chartNumber = 1;
-						  $.each(results, function(index, track) {
-//							console.log(track.get('trackId'));
-											$('#results').append($('<li data-id="' + track.get('trackId') + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.get('trackImg') + '"></div><p><a target="_blank" href="' + track.get('trackImgUrl')  + '">' + track.get('trackTitle') + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
-											chartNumber ++;
-											$('.stop').hide();
-					//						saveTrackToParse(track);
-									});
 
-					},
-					error: function(object, error) {
-							console.error(error);
-							// The object was not retrieved successfully.
-							// error is a Parse.Error with an error code and description.
-					}
-			});
-	
-	 
 //				 mixTrack.fetch({
 //				success: function(myObject) {
 //					// The object was refreshed successfully.
