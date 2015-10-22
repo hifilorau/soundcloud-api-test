@@ -1,4 +1,7 @@
 $font-one:'Quicksand', sans-serif;
+$font-two: 'Allerta Stencil', sans-serif;
+$font-three:'Megrim', cursive;
+$font-four: 'Geo', sans-serif;
 $color-one: #B63868;
 $color-two: #6FAC28;
 
@@ -38,15 +41,15 @@ a {
   /* Critical position and size styles */
   min-height: 100%;
   min-width: 100%;
-  background-color: white; /* Needs a background or else the nav will show through */
+  background-color: #B1D28B; /* Needs a background or else the nav will show through */
   position: relative;
   top: 0;
   bottom: 100%;
   left: 0;
   z-index: 1;
-//	background:url(https://images.unsplash.com/photo-1416244579084-cceb7ab682ca?dpr=2&fit=crop&fm=jpg&h=700&q=50&w=1050) no-repeat center center fixed;
+//	background:url(https://s3-us-west-2.amazonaws.com/1994/abstract-2.jpg) no-repeat center center fixed;
 //	background-size: cover;
-	background-color: white;
+	background-color: lightgrey;
   
   /* non-critical apperance styles */
   padding: 1em 0;

@@ -11,14 +11,18 @@
 }
 
 .now-playing-wrapper {
+	box-sizing: border-box;
+	border: 1px solid black;
 	text-align: center;
-	padding: .3em 2em;
-//	background-color: $color-two;
-	width: 90%;
-	margin: 0 auto;
-	text-align: right;
+	padding: 0 2em;
+	background-color: #cdd;
+	width: 99.6%;
+	margin: .8em auto 0;
+//	text-align: right;
 	display:flex;
 	justify-content: space-between;
+	font-family: $font-four;
+	font-size: 1.7em;
 	h4, p {display:inline-block;}
 	
 	p{
@@ -27,13 +31,17 @@
 	.now-playing-content {
 		display:inline-block;
 	}
-
+	a {
+		color: $color-one;
+	}
 
 }
 
 
 .content {
-	
+	padding-top: 1em;
+	width: 95%;
+	margin:0 auto;
 	.header-lmm {
 		display: flex;
 		flex-wrap: wrap;
@@ -64,17 +72,25 @@
 
 	.page-underling {
 		font-size: 4em;
-		font-family: sans-serif;
+		font-family: $font-two;
 		margin-left: 1rem;
 		text-transform: uppercase;
-		color: black;
+		color: #333;
 		font-weight: 700;
+		line-height: .9;
+	}
+	
+	.alpha {
+		font-family: $font-three;
+		color: $color-one;
 	}
 	
 	.now-playing-div {
-		height: 1.4em;
+		min-height: 1.4em;
 	}
-
+	p {
+		margin-bottom: 0;
+	}
 }
 
 #results  {
@@ -82,20 +98,21 @@
 	justify-content: space-around;
 	flex-wrap: wrap;
 	min-height: 100vh;
-	margin-top: .25em;
-	padding: 0 1em 1em;
+	box-sizing: border-box;
+//	margin-top: .25em;
+//	padding: 0 1em 1em;
 
 
 	
 	li {
-		min-width: 19%;
+		min-width: 19.5%;
 		text-align: center;
 		background-color: rgba(175, 35, 88, .9);
-//		border: black 1px solid;
 		margin-bottom: 1em;
 		position: relative;
 		color: white;
 		min-height: 24em;
+		padding: 0 1px;
 		
 	}
 	
@@ -129,10 +146,11 @@
 
 .chart-number {
 	position: absolute;
-	bottom: 2%;
-	right: 5%;
-	font-size: 4em;
-	color: limegreen;
+	bottom: -03%;
+	right: 3%;
+	font-size: 5em;
+	color: #333;
+	font-family: $font-four;
 }
 
 .stop, .start {
