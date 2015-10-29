@@ -27,12 +27,15 @@ $(document).ready(function() {
 	//// start button hider/shower 
 	
 	 var startToggler = function () {
-			var startButtons = $('.start');
-			 if (startButtons.hasClass('is-playing')) {
-				$('.start').removeClass('is-playing');
+			var startButtonsLi = $('.start').parents('.mixTrack-li');
+			 if (startButtonsLi.hasClass('is-playing')) {
+				 startButtonsLi.removeClass('is-playing');
+//				 $('.mixTrack-li').css('background-color', "#B63868");
+//				 $('.mixTrack-li').css('transition', '1s');
+//				 $('.mixTrack-li:hover').css('background-color', '#6FAC28');
 				 $('.stop').hide();
 				 $('.start').show();
-			 };
+			 }
 	   };
 	
 	
@@ -53,7 +56,7 @@ $(document).ready(function() {
 //						console.log(results[0].get('trackTitle'));	
 						var chartNumber = 1;
 						$.each(results, function(index, track) {
-										$('#results').append($('<li class="mixTrack-li" data-id="' + track.get('trackId') + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.get('trackImg') + '"></div><p><a target="_blank" href="' + track.get('trackImgUrl')  + '">' + track.get('trackTitle') + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
+										$('#results').append($('<li class="mixTrack-li" data-id="' + track.get('trackId') + '"></li>').html('<div class="chart-number">' + chartNumber + '</div><div class="song-content"><div><img class="song-image" src="' + track.get('trackImg') + '"></div><p><a target="_blank" href="' + track.get('trackUrl')  + '">' + track.get('trackTitle') + '</a></p><div class="sc-controls"><a href="#" class="start icon">D</a><a href="#" class="stop icon">E</a></div></div>'));
 										chartNumber ++;
 										$('.stop').hide();
 								});
@@ -75,7 +78,8 @@ $(document).ready(function() {
 	
 	 $('#results').on('click', '.start', function(e){
 		startToggler();
-		 $(this).addClass('is-playing');
+		 var startButtonLi = $(this).parents('.mixTrack-li');
+		 startButtonLi.addClass('is-playing');
 		 console.log(playOn);
  		 playOn = true;
 		 e.stopPropagation();
@@ -132,23 +136,25 @@ $(document).ready(function() {
 			console.log(randomTrack);
 			startToggler();
 			streamTrack(randomTrack);
-			cycleTracks(randomTrack);
 			nowPlaying(randomTrack);				
+			cycleTracks(randomTrack);
 		}}, function(sound){
 			
 			if (playOn === true) {
 			  soundManager.stopAll();
 				console.log(trackId);
 		 	  sound.play();
+				applyColor();
 				console.log('play');
-//				cycleTracks();
+				cycleTracks();
 				console.log(sound);
 				nowPlaying(trackId);
 			}
 			else {
 				nowPlaying(trackId);
 				sound.play();
-//				cycleTracks();
+				applyColor();
+				cycleTracks();
 			}
 			
 			 $('#results').on('click', '.stop', function(e){
@@ -158,6 +164,7 @@ $(document).ready(function() {
 				 startButton.removeClass('is-playing');
 				 startButton.show();
 				 sound.stop();
+//				 $('.mixTrack-li').css('background-color', "#B63868");
 				 playOn = false;
 				 console.log(playOn);
 				 e.stopPropagation();
@@ -198,47 +205,45 @@ $(document).ready(function() {
 			var trackCollection = $('.mixTrack-li');
 			console.log(trackCollection);
 			trackCollection.each(function(index, result){
-			var trackId = $(this).data('id');	
 				var track = $(this);
+			var trackId = $(this).data('id');	
 				console.log(randomTrack);
 				if (parseInt(trackId) === parseInt(randomTrack)) {
 					console.log('match');
 					var trackStartButton = track.find('.start');
-					trackStartButton.addClass('is-playing');
 					startToggler();
+					track.addClass('is-playing');
 				  trackStartButton.hide();
 					track.find('.stop').show();
-				}
+				};
 			    console.log(trackId);
 				});
 	};
-// $('.get-stuff').click(function() {
-//	    var MixTrack = Parse.Object.extend("MixTrack");
-//			var query = new Parse.Query(MixTrack);
-//				query.get("dxxYCQYxNK", {
-//				success: function(mixTrack) {
-//				console.log(mixTrack.get('trackTitle'));
-//				
-//				},
-//				error: function(object, error) {
-//				// The object was not retrieved successfully.
-//				// error is a Parse.Error with an error code and message.
-//				}
-//			 });
-//	  });
+
 	
+	var applyColor = function (){
+		var trackCollection = $('.mixTrack-li');
+//		var trackStart = $('.mixTrack-li').find('.start');
+			console.log(trackCollection);
+			trackCollection.each(function(index, result){	
+				var track = $(this);
+				var trackStart = track.find('.start');
+//				if (trackStart.hasClass('is-playing')) {
+//					track.css('background-color', '#2E965B');
+//				};
+	
+			});
+	};
 
-//				 mixTrack.fetch({
-//				success: function(myObject) {
-//					// The object was refreshed successfully.
-//				},
-//				error: function(myObject, error) {
-//					// The object was not refreshed successfully.
-//					// error is a Parse.Error with an error code and message.
-//				}
-//			});
-// });
-
+	$('.color-flip').click(function(){
+		var thisFlip = $(this);
+		if (thisFlip.css('background-color', '#purple')) {
+//			alert('yipee kaye aye motherfucker');
+//			return;
+		}
+	});
+	
+	
 		
 });
 

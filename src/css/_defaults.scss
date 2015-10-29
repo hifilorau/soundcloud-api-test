@@ -3,7 +3,9 @@ $font-two: 'Allerta Stencil', sans-serif;
 $font-three:'Megrim', cursive;
 $font-four: 'Geo', sans-serif;
 $color-one: #B63868;
-$color-two: #6FAC28;
+$color-one: rgb(108, 200, 148);
+$color-one-a:rgba(108, 200, 148, .7);
+$color-two: rgba(128, 0, 128, .5);
 
 body {
     font-family: $font-one, sans-serif;
@@ -47,7 +49,7 @@ a {
   bottom: 100%;
   left: 0;
   z-index: 1;
-//	background:url(https://s3-us-west-2.amazonaws.com/1994/abstract-2.jpg) no-repeat center center fixed;
+//	background:url(https://s3-us-west-2.amazonaws.com/1994/light-dark.jpg) no-repeat center center fixed;
 //	background-size: cover;
 	background-color: lightgrey;
   

@@ -12,17 +12,19 @@
 
 .now-playing-wrapper {
 	box-sizing: border-box;
-	border: 1px solid black;
+	border: 2px solid $color-one;
 	text-align: center;
 	padding: 0 2em;
-	background-color: #cdd;
-	width: 99.6%;
-	margin: .8em auto 0;
+	background-color: #DAD3D3;
+	width: 99.7%;
+	margin: .2em auto 0;
 //	text-align: right;
 	display:flex;
 	justify-content: space-between;
 	font-family: $font-four;
 	font-size: 1.7em;
+	transition: background-color 1s ease-in;
+	border-bottom: none;
 	h4, p {display:inline-block;}
 	
 	p{
@@ -37,15 +39,26 @@
 
 }
 
+.now-playing-wrapper:hover {
+	background-color: black;
+	transition: 15s background-color;
+}
+
+.tape {
+	display: inline-block;
+	width: 200px;
+	height: auto
+}
 
 .content {
 	padding-top: 1em;
 	width: 95%;
 	margin:0 auto;
 	.header-lmm {
-		display: flex;
+		display: block;
+		text-align: center;
 		flex-wrap: wrap;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		align-items: baseline;
 	
@@ -57,6 +70,13 @@
 //		display: inline-block;
 		margin-right: 1rem;
 		
+	}
+	
+	.page-h3 {
+		display:block;
+		color: #333;
+		font-family: $font-four;
+		font-size: 1.4em;
 	}
 	
 	h2 {
@@ -77,7 +97,23 @@
 		text-transform: uppercase;
 		color: #333;
 		font-weight: 700;
-		line-height: .9;
+		line-height: 1.1;
+	}
+	
+	
+	.color-flip {
+		color: white;
+		line-height: 1.1em;
+		transition: 1.5s ease-in;
+		background-color: $color-one;
+		display:inline-block;
+	}
+	
+	.color-flip:hover {
+		transition: 1.5s ease-in;
+		color: $color-one;
+//		line-height: 1em;
+		background-color: $color-two;
 	}
 	
 	.alpha {
@@ -107,17 +143,28 @@
 	li {
 		min-width: 19.5%;
 		text-align: center;
-		background-color: rgba(175, 35, 88, .9);
+		background-color: $color-one-a;
 		margin-bottom: 1em;
 		position: relative;
 		color: white;
 		min-height: 24em;
 		padding: 0 1px;
-		
+		transition: 1s background-color;
 	}
 	
+	.mixTrack-li {
+		transition: 1s background-color;
+	}
+	
+	
 	li:hover {
-		background-color: #6FAC28;
+		background-color: $color-two;
+		transition: none;
+	}
+
+	.is-playing {
+		transition: 1s background-color;
+		background-color: #2E965B;
 	}
 	
 	img {
@@ -144,6 +191,22 @@
 	}
 }
 
+.note {
+	min-height: 3em;
+}
+
+.holla {
+ font-family: $font-four;
+color: $color-one;
+	font-size: 1.3em;
+	transition: 1s;
+}
+
+.holla:hover {
+	font-size: 1.8em;
+	color: $color-two;
+}
+
 .chart-number {
 	position: absolute;
 	bottom: -03%;
@@ -161,7 +224,7 @@
 @media screen and (max-width: 750px) {
 	#results {
 		li {
-			min-width: 49.5%;
+			min-width: 49%;
 		}
 	}
 
